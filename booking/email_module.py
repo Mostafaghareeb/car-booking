@@ -30,7 +30,7 @@ Customer Support Team
     )
 
 
-def send_trip_approved_email(user_name, user_email, destination):
+def send_trip_approved_email(user_name, user_email, destination, confirmation_code):
     subject = "Your Trip Has Been Approved ✅"
     message = f"""
 Dear {user_name},
@@ -38,6 +38,11 @@ Dear {user_name},
 We are pleased to inform you that your trip to {destination} has been approved and is now active.
 
 You can now start preparing for your journey. If you have any questions or need assistance, feel free to reach out to our support team.
+
+IMPORTANT: Your Trip Confirmation Code
+Your unique 4-digit confirmation code is: **{confirmation_code}**
+
+You will need this code later to confirm and complete your trip. Please keep this code safe and do not share it with anyone.
 
 Best regards,  
 Customer Support Team

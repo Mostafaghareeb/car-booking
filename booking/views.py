@@ -5,7 +5,7 @@ from .forms import *
 from .models import CarBooking, Driver
 from django.utils import timezone
 from background_task import background
-from .email_module import send_pending_email, send_driver_assigned_email_to_client, send_trip_details_email_to_driver
+from .email_module import send_pending_email, send_driver_assigned_email_to_client, send_trip_details_email_to_driver, send_trip_approved_email
 
 
 @background(schedule=1)
@@ -67,6 +67,25 @@ def search(request):
     return render(request, 'pages/search.html', context)
 
 
+def client_confirm_trip(request, trip_id):
+    """Handle client trip confirmation with code"""
+    if request.method == 'POST':
+        trip = get_object_or_404(CarBooking, id=trip_id)
+        entered_code = request.POST.get('confirmation_code')
+        
+        if trip.confirmation_code and entered_code == trip.confirmation_code:
+            trip.client_confirmed = True
+            trip.save()
+            
+            # Check if both client and admin have confirmed
+            trip.check_completion_status()
+            
+            messages.success(request, 'Trip confirmed successfully!')
+        else:
+            messages.error(request, 'Invalid confirmation code. Please try again.')
+    
+    return redirect('search')
+
 
 def dashboard(request):
     # Get trip statistics
@@ -120,8 +139,14 @@ def update_trip_status(request, trip_id):
 
         if action == 'approved':
             trip.status = 'active'
+            # The signal will handle generating confirmation code and sending email
         elif action == 'cancelled':
             trip.status = 'cancelled'
+        elif action == 'complete':
+            trip.admin_confirmed = True
+            trip.save()
+            # Check if both client and admin have confirmed
+            trip.check_completion_status()
         
         trip.save()
     return redirect('trips')  # غيرها حسب اسم صفحة العرض الرئيسية

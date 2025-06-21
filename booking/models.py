@@ -1,4 +1,5 @@
 from django.db import models
+import random
 
 class Driver(models.Model):
     name = models.CharField(max_length=100)
@@ -27,6 +28,11 @@ class CarBooking(models.Model):
     destination = models.CharField(max_length=100)
     status = models.CharField(max_length=10, choices=status, default='pending', null=True, blank=True)
     driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True, blank=True)
+    
+    # New fields for trip confirmation system
+    confirmation_code = models.CharField(max_length=4, null=True, blank=True)
+    client_confirmed = models.BooleanField(default=False)
+    admin_confirmed = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.name} - {self.status}"
@@ -38,3 +44,17 @@ class CarBooking(models.Model):
         # Split by comma and clean up whitespace
         emails = [email.strip() for email in self.email.split(',') if email.strip()]
         return emails
+    
+    def generate_confirmation_code(self):
+        """Generate a random 4-digit confirmation code"""
+        self.confirmation_code = str(random.randint(1000, 9999))
+        self.save()
+        return self.confirmation_code
+    
+    def check_completion_status(self):
+        """Check if both client and admin have confirmed, and update status if needed"""
+        if self.client_confirmed and self.admin_confirmed and self.status != 'completed':
+            self.status = 'completed'
+            self.save()
+            return True
+        return False

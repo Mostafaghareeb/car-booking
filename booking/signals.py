@@ -16,11 +16,16 @@ def trip_status_change(sender, instance, **kwargs):
         email_list = instance.get_emails_list()
         
         if instance.status == 'active':
+            # Generate confirmation code if not already present
+            if not instance.confirmation_code:
+                instance.confirmation_code = str(instance.generate_confirmation_code())
+            
             for email in email_list:
                 send_trip_approved_email(
                     user_name=instance.name,
                     user_email=email,
                     destination=instance.destination,
+                    confirmation_code=instance.confirmation_code,
                 )
         elif instance.status == 'cancelled':
             for email in email_list:

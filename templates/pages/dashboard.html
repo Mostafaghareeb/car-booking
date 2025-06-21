@@ -314,58 +314,55 @@
 
   <!-- Dashboard Scripts -->
   <script>
-  const barCtx = document.getElementById('barChart').getContext('2d');
-  new Chart(barCtx, {
-    type: 'bar',
-    data: {
-      labels: {{ labels|safe }},
-      datasets: [{
-        label: 'Number of Trips',
-        data: {{ data|safe }},
-        backgroundColor: [
-          '#1578D8',
-          '#1992EB',  
-          '#33A3FF',  
-          '#4CB7FF',  
-          '#66C9FF'   
-        ],
-        borderRadius: 10,  
-        borderSkipped: false
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          labels: {
-            font: {
-              size: 14
-            }
+ const barCtx = document.getElementById('barChart').getContext('2d');
+new Chart(barCtx, {
+  type: 'line',
+  data: {
+    labels: {{ labels|safe }},
+    datasets: [{
+      label: 'Number of Trips',
+      data: {{ data|safe }},
+      fill: true,
+      borderColor: '#1578D8',
+      backgroundColor: 'rgba(21, 120, 216, 0.1)',
+      tension: 0.4,  // يخلي الخط منحني وناعم
+      pointBackgroundColor: '#1578D8',
+      pointRadius: 5,
+      pointHoverRadius: 7,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            size: 14
           }
-        },
-        tooltip: {
-          backgroundColor: '#333',
-          titleColor: '#fff',
-          bodyColor: '#fff',
-          cornerRadius: 5
         }
       },
-      scales: {
-        y: {
-          beginAtZero: true,
-          grid: {
-            color: '#eee'
-          }
-        },
-        x: {
-          grid: {
-            display: false
-          }
+      tooltip: {
+        backgroundColor: '#333',
+        titleColor: '#fff',
+        bodyColor: '#fff',
+        cornerRadius: 5
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: {
+          color: '#eee'
+        }
+      },
+      x: {
+        grid: {
+          display: false
         }
       }
     }
-  });
-
+  }
+});
 
 
   // Pie Chart: Trip Distribution
