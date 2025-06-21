@@ -1,0 +1,113 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Booking Services</title>
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% tailwind_css %}
+</head>
+
+{% block content %}
+{% endblock %}
+
+
+<script>
+
+    function cancelTrip(bookingId) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to undo this action!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, cancel it!",
+            cancelButtonText: "No, keep it"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/cancel/${bookingId}/`, { method: "GET" })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire("Canceled!", "The trip has been canceled.", "success")
+                                .then(() => location.reload());
+                        }
+                    });
+            }
+        });
+    }
+
+
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let startDate = document.getElementById("id_start_date");
+    let endDate = document.getElementById("id_end_date");
+
+    function getFormattedDate(date) {
+      let year = date.getFullYear();
+      let month = String(date.getMonth() + 1).padStart(2, "0");
+      let day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    let today = new Date();
+    startDate.setAttribute("min", getFormattedDate(today));
+
+    startDate.addEventListener("change", function () {
+      if (startDate.value) {
+        let selectedStart = new Date(startDate.value);
+        endDate.removeAttribute("disabled");
+        endDate.setAttribute("min", getFormattedDate(selectedStart));
+
+        if (new Date(endDate.value) < selectedStart) {
+          endDate.value = getFormattedDate(selectedStart);
+        }
+      }
+    });
+
+    endDate.addEventListener("change", function () {
+      let selectedStart = new Date(startDate.value);
+      let selectedEnd = new Date(endDate.value);
+
+      if (selectedEnd < selectedStart) {
+        Swal.fire({
+          title: "Error!",
+          text: "The end date must be after or equal to the start date!",
+          icon: "error",
+          confirmButtonText: "OK"
+        });
+        endDate.value = getFormattedDate(selectedStart);
+      }
+    });
+  });
+</script>
+
+<script>
+    function search() {
+        let query = document.querySelector(".search").value.toLowerCase();
+        let trips = document.querySelectorAll('.trip-item');
+
+        trips.forEach(trip => {
+            let name = trip.querySelector('.trip-name').textContent.toLowerCase();
+            let phone = trip.querySelector('.trip-phone').textContent.toLowerCase();
+            let destination = trip.querySelector('.trip-destination').textContent.toLowerCase();
+            let date = trip.querySelector('.trip-date').textContent.toLowerCase();
+
+            if (name.includes(query) || phone.includes(query) || destination.includes(query) || date.includes(query)) {
+                trip.style.display = "block";
+            } else {
+                trip.style.display = "none";
+            }
+        });
+    }
+
+</script>
+
+</body>
+
+</html>

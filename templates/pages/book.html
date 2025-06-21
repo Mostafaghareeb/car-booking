@@ -1,0 +1,92 @@
+{% extends '../base.html' %}
+{% load static tailwind_tags %}
+{% load i18n %}
+{% block content %}
+
+<body class="bg-gradient-to-b from-blue-100 to-white h-screen">
+    <div class="containe flex items-center justify-center h-full">
+        <!-- Form -->
+        <div class="bg-white px-8 py-6 rounded-xl shadow-lg w-full max-w-2xl">
+            <!-- Back Button -->
+            <a href="{% url 'index' %}" class="flex items-center text-black hover:text-blue-600 font-medium space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7 7-7" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18" />
+                </svg>
+                <span class="-mt-[2px]">{% trans "Back" %}</span>
+            </a>
+
+            <h2 class="text-xl font-semibold text-center mb-4 mt-2">{% trans "Request a Car" %}</h2>
+
+            <!-- Inputs -->
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label class="block text-gray-700">{% trans "Name" %}</label>
+                    {{form.name}}
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700">{% trans "Phone Number" %}</label>
+                    {{form.phone_number}}
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700">{% trans "Email" %}</label>
+                    {{form.email}}
+                </div>
+
+                <div class="flex flex-col md:flex-row md:space-x-4 mb-4">
+                    <div class="w-full md:w-1/2">
+                        <label class="block text-gray-700" for="id_start_date">{% trans "Start Date" %}</label>
+                        {{form.start_date}}
+                    </div>
+                    <div class="w-full md:w-1/2 mt-2 md:mt-0">
+                        <label class="block text-gray-700" for="id_end_date">{% trans "End Date" %}</label>
+                        {{form.end_date}}
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700">{% trans "Destination" %}</label>
+                    {{form.destination}}
+
+                    <datalist id="governorates">
+                        <option value="{% trans 'Cairo' %}">
+                        <option value="{% trans 'Giza' %}">
+                        <option value="{% trans 'Alexandria' %}">
+                        <option value="{% trans 'Dakahlia' %}">
+                        <option value="{% trans 'Beheira' %}">
+                        <option value="{% trans 'Sharqia' %}">
+                        <option value="{% trans 'Monufia' %}">
+                        <option value="{% trans 'Gharbia' %}">
+                        <option value="{% trans 'Kafr El Sheikh' %}">
+                        <option value="{% trans 'Faiyum' %}">
+                        <option value="{% trans 'Beni Suef' %}">
+                        <option value="{% trans 'Minya' %}">
+                        <option value="{% trans 'Asyut' %}">
+                        <option value="{% trans 'Sohag' %}">
+                        <option value="{% trans 'Qena' %}">
+                        <option value="{% trans 'Luxor' %}">
+                        <option value="{% trans 'Aswan' %}">
+                        <option value="{% trans 'Red Sea' %}">
+                        <option value="{% trans 'New Valley' %}">
+                        <option value="{% trans 'Matrouh' %}">
+                        <option value="{% trans 'North Sinai' %}">
+                        <option value="{% trans 'South Sinai' %}">
+                        <option value="{% trans 'Port Said' %}">
+                        <option value="{% trans 'Ismailia' %}">
+                        <option value="{% trans 'Suez' %}">
+                        <option value="{% trans 'Damietta' %}">
+                    </datalist>
+                </div>
+
+                <button type="submit" class="w-full bg-primary text-white p-2 rounded-lg hover:bg-blue-700">
+                    {% trans "Book Trip" %}
+                </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

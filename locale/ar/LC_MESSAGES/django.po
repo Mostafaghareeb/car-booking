@@ -1,0 +1,209 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-14 01:46+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: .\booking\forms.py:12
+msgid "Enter your name"
+msgstr "ادخل اسمك"
+
+#: .\booking\forms.py:17
+msgid "Enter your phone number"
+msgstr "ادخل رقم هاتفك"
+
+#: .\booking\forms.py:22
+msgid "Enter your email"
+msgstr "ادخل بريدك الالكتروني"
+
+#: .\booking\forms.py:35
+msgid "Select a governorate..."
+msgstr "اختر محافظة"
+
+#: .\templates\pages\book.html:17 .\templates\pages\cancel.html:18
+#: .\templates\pages\search.html:17
+msgid "Back"
+msgstr "رجوع"
+
+#: .\templates\pages\book.html:20
+msgid "Request a Car"
+msgstr "طلب سيارة"
+
+#: .\templates\pages\book.html:26
+msgid "Name"
+msgstr "الاسم"
+
+#: .\templates\pages\book.html:31
+msgid "Phone Number"
+msgstr "رقم الهاتف"
+
+#: .\templates\pages\book.html:36
+msgid "Email"
+msgstr "البريد الالكتروني"
+
+#: .\templates\pages\book.html:42
+msgid "Start Date"
+msgstr "تاريخ البدء"
+
+#: .\templates\pages\book.html:46
+msgid "End Date"
+msgstr "تاريخ الانتهاء"
+
+#: .\templates\pages\book.html:52
+msgid "Destination"
+msgstr "الوجهة"
+
+#: .\templates\pages\book.html:56
+msgid "Cairo"
+msgstr "القاهرة"
+
+#: .\templates\pages\book.html:57
+msgid "Giza"
+msgstr "الجيزة"
+
+#: .\templates\pages\book.html:58
+msgid "Alexandria"
+msgstr "الاسكندرية"
+
+#: .\templates\pages\book.html:59
+msgid "Dakahlia"
+msgstr "الدقهلية"
+
+#: .\templates\pages\book.html:60
+msgid "Beheira"
+msgstr "البحيرة"
+
+#: .\templates\pages\book.html:61
+msgid "Sharqia"
+msgstr "الشرقية"
+
+#: .\templates\pages\book.html:62
+msgid "Monufia"
+msgstr "المنوفية"
+
+#: .\templates\pages\book.html:63
+msgid "Gharbia"
+msgstr "الغريبة"
+
+#: .\templates\pages\book.html:64
+msgid "Kafr El Sheikh"
+msgstr "كفر الشيخ"
+
+#: .\templates\pages\book.html:65
+msgid "Faiyum"
+msgstr "الفيوم"
+
+#: .\templates\pages\book.html:66
+msgid "Beni Suef"
+msgstr "بني سويف"
+
+#: .\templates\pages\book.html:67
+msgid "Minya"
+msgstr "المينيا"
+
+#: .\templates\pages\book.html:68
+msgid "Asyut"
+msgstr "اسيوط"
+
+#: .\templates\pages\book.html:69
+msgid "Sohag"
+msgstr "سوهاج"
+
+#: .\templates\pages\book.html:70
+msgid "Qena"
+msgstr "قنا"
+
+#: .\templates\pages\book.html:71
+msgid "Luxor"
+msgstr "الاقصر"
+
+#: .\templates\pages\book.html:72
+msgid "Aswan"
+msgstr "اسوان"
+
+#: .\templates\pages\book.html:73
+msgid "Red Sea"
+msgstr "البحر الاحمر"
+
+#: .\templates\pages\book.html:74
+msgid "New Valley"
+msgstr "الوادي الجديد"
+
+#: .\templates\pages\book.html:75
+msgid "Matrouh"
+msgstr "مطروح"
+
+#: .\templates\pages\book.html:76
+msgid "North Sinai"
+msgstr "شمال سيناء"
+
+#: .\templates\pages\book.html:77
+msgid "South Sinai"
+msgstr "جنوب سيناء"
+
+#: .\templates\pages\book.html:78
+msgid "Port Said"
+msgstr "بور سعيد"
+
+#: .\templates\pages\book.html:79
+msgid "Ismailia"
+msgstr "اسماعيلية"
+
+#: .\templates\pages\book.html:80
+msgid "Suez"
+msgstr "السويس"
+
+#: .\templates\pages\book.html:81
+msgid "Damietta"
+msgstr "دمياط"
+
+#: .\templates\pages\book.html:86
+msgid "Book Trip"
+msgstr "حجز رحلة"
+
+#: .\templates\pages\cancel.html:21 .\templates\pages\index.html:42
+msgid "Cancel Trip"
+msgstr "الغاء رحلة"
+
+#: .\templates\pages\cancel.html:25 .\templates\pages\search.html:24
+msgid "Search Trips..."
+msgstr "البحث عن رحلات"
+
+#: .\templates\pages\cancel.html:67 .\templates\pages\search.html:66
+msgid "No active trips found"
+msgstr "لا يوجد رحلات نشطة"
+
+#: .\templates\pages\index.html:9
+msgid "Car Booking Services"
+msgstr "خدمات حجز سياره"
+
+#: .\templates\pages\index.html:37
+msgid "Request a car"
+msgstr "طلب سيارة"
+
+#: .\templates\pages\index.html:47 .\templates\pages\search.html:20
+msgid "Search Trips"
+msgstr "البحث عن رحلات"
+
+#: .\templates\pages\search.html:35
+msgid "active"
+msgstr "نشط"
+
+#: .\templates\pages\search.html:39
+msgid "completed"
+msgstr "مكتمل"
