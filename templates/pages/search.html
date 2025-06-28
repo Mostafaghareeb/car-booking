@@ -59,8 +59,8 @@
         >
           <div class="flex items-center justify-between">
             <h2 class="text-lg font-bold trip-name">{{trip.name}}</h2>
-            {% comment %} active trip {% endcomment %}
-             {% if trip.status == 'active' %}
+            {% comment %} active trip {% endcomment %} 
+            {% if trip.status == 'active' %}
             <div class="space-x-2">
               <span
                 class="text-sm font-medium text-green-800 bg-green-200 p-1 rounded ml-6"
@@ -69,6 +69,8 @@
               </span>
               <i
                 class="fas fa-pencil-alt text-blue-600 hover:text-blue-800 cursor-pointer"
+                onclick="showEditConfirmationForm({{trip.id}})"
+                title="Edit trip"
               ></i>
               <i
                 class="fas fa-times text-red-600 hover:text-red-800 cursor-pointer"
@@ -77,8 +79,8 @@
               ></i>
             </div>
 
-            {% comment %} pending trip {% endcomment %} 
-            {% elif trip.status == 'pending' %}
+            {% comment %} pending trip {% endcomment %}
+             {% elif trip.status == 'pending' %}
             <div class="space-x-2">
               <span
                 class="text-sm font-medium text-yellow-800 bg-yellow-100 p-1 rounded ml-6"
@@ -88,6 +90,8 @@
 
               <i
                 class="fas fa-pencil-alt text-blue-600 hover:text-blue-800 cursor-pointer"
+                onclick="showEditConfirmationForm({{trip.id}})"
+                title="Edit trip"
               ></i>
               <i
                 class="fas fa-times text-red-600 hover:text-red-800 cursor-pointer"
@@ -96,7 +100,7 @@
               ></i>
             </div>
 
-            {% comment %} completed trip {% endcomment %} 
+            {% comment %} completed trip {% endcomment %}
             {% elif trip.status == 'completed' %}
             <div class="space-x-2">
               <span
@@ -110,7 +114,7 @@
                 title="Not editable"
               ></i>
             </div>
-            {% comment %} cancelled trip {% endcomment %} 
+            {% comment %} cancelled trip {% endcomment %}
             {% else %}
             <div class="space-x-2">
               <span
@@ -283,6 +287,52 @@
                 </div>
               </form>
             </div>
+
+            <!-- Edit Confirmation Form -->
+            <div
+              id="edit-confirmation-form-{{trip.id}}"
+              class="hidden mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg"
+            >
+              <form
+                method="POST"
+                action="{% url 'edit_trip_confirmation' trip.id %}"
+              >
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label
+                    for="edit_confirmation_code_{{trip.id}}"
+                    class="block text-sm font-medium text-blue-700 mb-1"
+                  >
+                    Enter your 4-digit confirmation code to edit this trip:
+                  </label>
+                  <input
+                    type="text"
+                    id="edit_confirmation_code_{{trip.id}}"
+                    name="confirmation_code"
+                    maxlength="4"
+                    pattern="[0-9]{4}"
+                    class="w-full p-2 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="0000"
+                    required
+                  />
+                </div>
+                <div class="flex space-x-2 mt-3">
+                  <button
+                    type="submit"
+                    class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+                  >
+                    Edit Trip
+                  </button>
+                  <button
+                    type="button"
+                    onclick="hideEditConfirmationForm({{trip.id}})"
+                    class="bg-gray-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-600 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
             {% endif %}
           </div>
         </div>
@@ -317,6 +367,18 @@
     function hideDeleteConfirmationForm(tripId) {
       document
         .getElementById(`delete-confirmation-form-${tripId}`)
+        .classList.add("hidden");
+    }
+
+    function showEditConfirmationForm(tripId) {
+      document
+        .getElementById(`edit-confirmation-form-${tripId}`)
+        .classList.remove("hidden");
+    }
+
+    function hideEditConfirmationForm(tripId) {
+      document
+        .getElementById(`edit-confirmation-form-${tripId}`)
         .classList.add("hidden");
     }
   </script>

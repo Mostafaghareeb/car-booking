@@ -223,3 +223,48 @@ def delete_trip(request, trip_id):
             messages.error(request, 'Invalid confirmation code. Please try again.')
     
     return redirect('search')
+
+
+def edit_trip_confirmation(request, trip_id):
+    """Handle edit confirmation with code verification"""
+    if request.method == 'POST':
+        trip = get_object_or_404(CarBooking, id=trip_id)
+        entered_code = request.POST.get('confirmation_code')
+        
+        if trip.confirmation_code and entered_code == trip.confirmation_code:
+            # Store trip_id in session for the edit form
+            request.session['editing_trip_id'] = trip_id
+            return redirect('edit_trip', trip_id=trip_id)
+        else:
+            messages.error(request, 'Invalid confirmation code. Please try again.')
+    
+    return redirect('search')
+
+
+def edit_trip(request, trip_id):
+    """Handle trip editing form"""
+    trip = get_object_or_404(CarBooking, id=trip_id)
+    
+    # Check if user has permission to edit (confirmation code was verified)
+    if request.session.get('editing_trip_id') != trip_id:
+        messages.error(request, 'Please verify your confirmation code first.')
+        return redirect('search')
+    
+    if request.method == 'POST':
+        form = BookForm(request.POST, instance=trip)
+        if form.is_valid():
+            form.save()
+            # Clear the session
+            if 'editing_trip_id' in request.session:
+                del request.session['editing_trip_id']
+            messages.success(request, 'Trip updated successfully!')
+            return redirect('search')
+    else:
+        form = BookForm(instance=trip)
+    
+    context = {
+        'form': form,
+        'trip': trip,
+    }
+    
+    return render(request, 'pages/edit_trip.html', context)
