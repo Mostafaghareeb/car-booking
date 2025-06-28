@@ -79,8 +79,8 @@
               ></i>
             </div>
 
-            {% comment %} pending trip {% endcomment %}
-             {% elif trip.status == 'pending' %}
+            {% comment %} pending trip {% endcomment %} 
+            {% elif trip.status == 'pending' %}
             <div class="space-x-2">
               <span
                 class="text-sm font-medium text-yellow-800 bg-yellow-100 p-1 rounded ml-6"
@@ -100,7 +100,7 @@
               ></i>
             </div>
 
-            {% comment %} completed trip {% endcomment %}
+            {% comment %} completed trip {% endcomment %} 
             {% elif trip.status == 'completed' %}
             <div class="space-x-2">
               <span
@@ -114,7 +114,7 @@
                 title="Not editable"
               ></i>
             </div>
-            {% comment %} cancelled trip {% endcomment %}
+            {% comment %} cancelled trip {% endcomment %} 
             {% else %}
             <div class="space-x-2">
               <span
