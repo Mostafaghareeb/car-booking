@@ -39,7 +39,7 @@ class BookForm(forms.ModelForm):
                 'placeholder': _('Enter your phone number'),
                 'type': 'tel'
             }),
-            'email': forms.Textarea(attrs={
+            'email': forms.TextInput(attrs={
                 'class': 'w-full p-2 border border-gray-300 rounded-lg email-input',
                 'placeholder': _('Enter email addresses separated by commas'),
                 'rows': 3

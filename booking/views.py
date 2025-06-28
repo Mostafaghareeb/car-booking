@@ -1,16 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+import json
 from django.http import JsonResponse
 from django.contrib import messages
 from .forms import *
-from .models import CarBooking, Driver
+from .models import CarBooking
 from django.utils import timezone
 from background_task import background
 from .email_module import send_pending_email, send_driver_assigned_email_to_client, send_trip_details_email_to_driver, send_trip_approved_email
 
 
 @background(schedule=1)
-def send_email_task(user_name, user_email, user_destination, user_start_date, user_end_date):
-    send_pending_email(user_name, user_email, user_destination, user_start_date, user_end_date)
+def send_pending_email_task(user_name, user_email, user_destination, user_start_date, user_end_date, confirmation_code):
+    send_pending_email(user_name, user_email, user_destination, user_start_date, user_end_date, confirmation_code)
 
 
 def index(request): 
@@ -22,6 +24,9 @@ def book(request):
         book_info = BookForm(request.POST)
         if book_info.is_valid():
             trip = book_info.save()
+            
+            # Generate confirmation code
+            confirmation_code = trip.generate_confirmation_code()
 
             user_name = request.POST.get("name")
             user_emails = request.POST.get("email")
@@ -33,7 +38,7 @@ def book(request):
             if user_emails:
                 email_list = [email.strip() for email in user_emails.split(',') if email.strip()]
                 for email in email_list:
-                    send_email_task(user_name, email, user_destination, user_start_date, user_end_date)
+                    send_pending_email_task(user_name, email, user_destination, user_start_date, user_end_date, confirmation_code)
 
             return redirect('index')
         else:
@@ -41,28 +46,13 @@ def book(request):
     return render(request, 'pages/book.html', {'form': BookForm()})
 
 
-def cancel_booking(request, booking_id):
-    booking = get_object_or_404(CarBooking, id=booking_id)
-    booking.status = 'cancelled'
-    booking.save()
-    return JsonResponse({"success": True})
-
-
-def cancel(request):
-
-    context = {
-        'trips': CarBooking.objects.all(),
-        'has_data': CarBooking.objects.filter(status='active').exists(),
-        'latest_trips': CarBooking.objects.order_by('-start_date')[:6]
-    }
-    return render(request, 'pages/cancel.html', context)
 
 def search(request):
 
     context = {
         'trips': CarBooking.objects.all(),
-        'has_data': CarBooking.objects.filter(status='active').exists(),
-        'latest_trips': CarBooking.objects.exclude(status='pending').order_by('-start_date')[:10]
+        'has_data': CarBooking.objects.exists(),
+        'latest_trips': CarBooking.objects.order_by('start_date')[:10]
     }
     return render(request, 'pages/search.html', context)
 
@@ -118,7 +108,7 @@ def dashboard(request):
         'data': trip_counts
     }
     
-    return render(request, 'pages/dashboard.html', context)
+    return render(request, 'dashboard/dashboard.html', context)
 
 
 def trips(request):
@@ -129,7 +119,7 @@ def trips(request):
         'trips': trips,
     }
     
-    return render(request, 'pages/trips.html', context)
+    return render(request, 'dashboard/trips.html', context)
 
 
 def update_trip_status(request, trip_id):
@@ -137,19 +127,22 @@ def update_trip_status(request, trip_id):
         trip = get_object_or_404(CarBooking, id=trip_id)
         action = request.POST.get('action')
 
-        if action == 'approved':
+        if trip.status in ['completed', 'cancelled']:
+            messages.warning(request, f"The trip status cannot be modified because it is {trip.status}.")
+            return redirect('trips')
+
+        if action == 'approved' and trip.status == 'pending':
             trip.status = 'active'
-            # The signal will handle generating confirmation code and sending email
         elif action == 'cancelled':
             trip.status = 'cancelled'
-        elif action == 'complete':
+        elif action == 'completed':
             trip.admin_confirmed = True
             trip.save()
-            # Check if both client and admin have confirmed
             trip.check_completion_status()
-        
+
         trip.save()
-    return redirect('trips')  # غيرها حسب اسم صفحة العرض الرئيسية
+        messages.success(request, "Trip status updated successfully.")
+    return redirect('trips')
 
 
 def trip_detail(request, trip_id):
@@ -199,9 +192,6 @@ def trip_detail(request, trip_id):
             
             messages.success(request, 'Trip and driver information saved successfully.')
             return redirect('trips')
-        else:
-            print(trip_form.errors + "#############################")
-            print(driver_form.errors)
 
     else:
         trip_form = BookForm(instance=trip, prefix='trip')
@@ -216,4 +206,20 @@ def trip_detail(request, trip_id):
         'driver_form': driver_form,
     }
     
-    return render(request, 'pages/trip_detail.html', context)
+    return render(request, 'dashboard/trip_detail.html', context)
+
+
+def delete_trip(request, trip_id):
+    """Handle trip deletion with confirmation code verification"""
+    if request.method == 'POST':
+        trip = get_object_or_404(CarBooking, id=trip_id)
+        entered_code = request.POST.get('confirmation_code')
+        
+        if trip.confirmation_code and entered_code == trip.confirmation_code:
+            trip.status = 'cancelled'
+            trip.save()
+            messages.success(request, 'Trip cancelled successfully!')
+        else:
+            messages.error(request, 'Invalid confirmation code. Please try again.')
+    
+    return redirect('search')

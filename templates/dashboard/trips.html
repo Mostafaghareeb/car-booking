@@ -44,7 +44,6 @@
       </div>
     </div>
   </nav>
-
   <!-- Sidebar -->
   <div class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg mt-16">
     <div class="h-full px-3 py-4 overflow-y-auto">
@@ -97,6 +96,45 @@
 
   <!-- Main Content -->
   <div class="pl-64 pt-16">
+          <!-- Success Messages -->
+      {% if messages %} {% for message in messages %}
+      <div
+        class="mb-6 p-4 rounded-md {% if message.tags == 'success' %}bg-green-50 border border-green-200 text-green-800{% else %}bg-red-50 border border-red-200 text-red-800{% endif %}"
+      >
+        <div class="flex">
+          <div class="flex-shrink-0">
+            {% if message.tags == 'success' %}
+            <svg
+              class="h-5 w-5 text-green-400"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            {% else %}
+            <svg
+              class="h-5 w-5 text-red-400"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            {% endif %}
+          </div>
+          <div class="ml-3">
+            <p class="text-sm font-medium">{{ message }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% endif %}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Header -->
       <div class="flex justify-between items-center mb-6">
@@ -218,7 +256,7 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span
-                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {% if trip.status == 'active' %}bg-green-100 text-green-800 {% elif trip.status == 'pending' %}bg-yellow-100 text-yellow-800 {% elif trip.status == 'cancelled' %}bg-red-100 text-red-800 {% else %}bg-gray-100 text-gray-800{% endif %}"
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {% if trip.status == 'active' %}bg-green-100 text-green-800 {% elif trip.status == 'pending' %}bg-yellow-100 text-yellow-800 {% elif trip.status == 'cancelled' %}bg-red-100 text-red-800 {% else %}text-blue-600 bg-blue-100{% endif %}"
                   >
                     {{ trip.status }}
                   </span>
@@ -305,7 +343,7 @@
                       action="{% url 'update_trip_status' trip.id %}"
                     >
                       {% csrf_token %}
-                      <input type="hidden" name="action" value="complete" />
+                      <input type="hidden" name="action" value="completed" />
                       <button
                         type="submit"
                         class="text-blue-600 hover:text-blue-900 bg-blue-100 hover:bg-blue-200 px-3 py-1 rounded-md text-xs font-medium transition-colors"

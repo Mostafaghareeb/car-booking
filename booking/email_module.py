@@ -1,7 +1,7 @@
 from django.core.mail import send_mail
 from django.conf import settings
 
-def send_pending_email(user_name, user_email, user_destination, user_start_date, user_end_date):
+def send_pending_email(user_name, user_email, user_destination, user_start_date, user_end_date, confirmation_code):
     subject = "Trip Booking Request Received"
 
     message = f"""
@@ -14,6 +14,11 @@ Start Date: {user_start_date}
 End Date: {user_end_date}  
 
 Current Status: Pending Review
+
+IMPORTANT: Your Trip Confirmation Code
+Your unique 4-digit confirmation code is: **{confirmation_code}**
+
+You will need this code later to confirm and complete your trip. Please keep this code safe and do not share it with anyone.
 
 Our team will review your request and contact you once it is approved or if any further information is required.
 

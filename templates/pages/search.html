@@ -1,10 +1,8 @@
-{% extends '../base.html' %}
-{% load static tailwind_tags %}
-{% load i18n %} 
-{%  block content %}
+{% extends '../base.html' %} {% load static tailwind_tags %} {% load i18n %}
+{%block content %}
 
 <body class="bg-gradient-to-b from-blue-100 to-white min-h-screen">
-  <div class="flex items-center justify-center mt-24">
+  <div class="flex items-center justify-center min-h-screen">
     <!-- Form -->
     <div class="bg-white px-8 py-6 rounded-xl shadow-lg w-full max-w-2xl">
       <a
@@ -50,7 +48,7 @@
       <div class="mb-4">
         <input
           type="text"
-          class="search w-full p-2 border rounded-lg"
+          class="search w-full p-2 border rounded-lg border-gray-400"
           placeholder="{% trans 'Search Trips...' %}"
           onkeyup="search()"
         />
@@ -61,25 +59,71 @@
         >
           <div class="flex items-center justify-between">
             <h2 class="text-lg font-bold trip-name">{{trip.name}}</h2>
+            {% comment %} active trip {% endcomment %}
+             {% if trip.status == 'active' %}
+            <div class="space-x-2">
+              <span
+                class="text-sm font-medium text-green-800 bg-green-200 p-1 rounded ml-6"
+              >
+                {% trans "active" %}
+              </span>
+              <i
+                class="fas fa-pencil-alt text-blue-600 hover:text-blue-800 cursor-pointer"
+              ></i>
+              <i
+                class="fas fa-times text-red-600 hover:text-red-800 cursor-pointer"
+                onclick="showDeleteConfirmationForm({{trip.id}})"
+                title="Delete trip"
+              ></i>
+            </div>
 
-            {% if trip.status == 'active' %}
-            <span
-              class="text-sm font-medium text-green-800 bg-green-200 p-1 rounded ml-6"
-            >
-              {% trans "active" %}
-            </span>
+            {% comment %} pending trip {% endcomment %} 
+            {% elif trip.status == 'pending' %}
+            <div class="space-x-2">
+              <span
+                class="text-sm font-medium text-yellow-800 bg-yellow-100 p-1 rounded ml-6"
+              >
+                {% trans "pending" %}
+              </span>
+
+              <i
+                class="fas fa-pencil-alt text-blue-600 hover:text-blue-800 cursor-pointer"
+              ></i>
+              <i
+                class="fas fa-times text-red-600 hover:text-red-800 cursor-pointer"
+                onclick="showDeleteConfirmationForm({{trip.id}})"
+                title="Delete trip"
+              ></i>
+            </div>
+
+            {% comment %} completed trip {% endcomment %} 
             {% elif trip.status == 'completed' %}
-            <span
-              class="text-sm font-medium text-slate-800 bg-gray-300 p-1 rounded ml-6"
-            >
-              {% trans "completed" %}
-            </span>
+            <div class="space-x-2">
+              <span
+                class="text-sm font-medium text-blue-600 bg-blue-100 p-1 rounded ml-6"
+              >
+                {% trans "completed" %}
+              </span>
+
+              <i
+                class="fas fa-lock text-gray-400 cursor-not-allowed"
+                title="Not editable"
+              ></i>
+            </div>
+            {% comment %} cancelled trip {% endcomment %} 
             {% else %}
-            <span
-              class="text-sm font-medium text-red-600 bg-red-200 p-1 rounded ml-6"
-            >
-              {% trans trip.status %}
-            </span>
+            <div class="space-x-2">
+              <span
+                class="text-sm font-medium text-red-600 bg-red-200 p-1 rounded ml-6"
+              >
+                {% trans trip.status %}
+              </span>
+
+              <i
+                class="fas fa-lock text-gray-400 cursor-not-allowed"
+                title="Not editable"
+              ></i>
+            </div>
             {% endif %}
           </div>
           <div class="mt-4 text-gray-700">
@@ -112,8 +156,8 @@
                   <i
                     class="fa-solid {% if trip.client_confirmed %}fa-check-circle{% else %}fa-clock{% endif %} mr-1"
                   ></i>
-                  Client: {% if trip.client_confirmed %}Confirmed
-                  {% else %}Pending{% endif %}
+                  Client: {% if trip.client_confirmed %}Confirmed {% else
+                  %}Pending{% endif %}
                 </span>
                 <span
                   class="{% if trip.admin_confirmed %}text-green-600{% else %}text-gray-500{% endif %}"
@@ -121,8 +165,8 @@
                   <i
                     class="fa-solid {% if trip.admin_confirmed %}fa-check-circle{% else %}fa-clock{% endif %} mr-1"
                   ></i>
-                  Admin: {% if trip.admin_confirmed %}Confirmed
-                  {% else %}Pending{% endif %}
+                  Admin: {% if trip.admin_confirmed %}Confirmed {% else
+                  %}Pending{% endif %}
                 </span>
               </div>
             </div>
@@ -195,10 +239,54 @@
               </span>
             </div>
             {% endif %}
+
+            <!-- Delete Confirmation Form -->
+            {% if trip.status == 'active' or trip.status == 'pending' %}
+            <div
+              id="delete-confirmation-form-{{trip.id}}"
+              class="hidden mt-3 p-3 bg-red-50 border border-red-200 rounded-lg"
+            >
+              <form method="POST" action="{% url 'delete_trip' trip.id %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label
+                    for="delete_confirmation_code_{{trip.id}}"
+                    class="block text-sm font-medium text-red-700 mb-1"
+                  >
+                    Enter your 4-digit confirmation code to cancel this trip:
+                  </label>
+                  <input
+                    type="text"
+                    id="delete_confirmation_code_{{trip.id}}"
+                    name="confirmation_code"
+                    maxlength="4"
+                    pattern="[0-9]{4}"
+                    class="w-full p-2 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    placeholder="0000"
+                    required
+                  />
+                </div>
+                <div class="flex space-x-2 mt-3">
+                  <button
+                    type="submit"
+                    class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors"
+                  >
+                    Cancel Trip
+                  </button>
+                  <button
+                    type="button"
+                    onclick="hideDeleteConfirmationForm({{trip.id}})"
+                    class="bg-gray-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-600 transition-colors"
+                  >
+                    Keep Trip
+                  </button>
+                </div>
+              </form>
+            </div>
+            {% endif %}
           </div>
         </div>
-        {% endfor %} 
-        {% else %}
+        {% endfor %} {% else %}
         <p class="text-center text-[#87898b] mt-10">
           {% trans "No active trips found" %}
         </p>
@@ -220,10 +308,18 @@
         .classList.add("hidden");
     }
 
-    function search() {
-      // Existing search functionality
+    function showDeleteConfirmationForm(tripId) {
+      document
+        .getElementById(`delete-confirmation-form-${tripId}`)
+        .classList.remove("hidden");
+    }
+
+    function hideDeleteConfirmationForm(tripId) {
+      document
+        .getElementById(`delete-confirmation-form-${tripId}`)
+        .classList.add("hidden");
     }
   </script>
 
-{% endblock %}
-
+  {% endblock %}
+</body>

@@ -1,52 +1,70 @@
-{% extends '../base.html' %}
-{% block content %}
-{% load i18n %}
+{% extends '../base.html' %} {% block content %} {% load i18n %}
 
 <body class="bg-gradient-to-b from-blue-100 to-white">
-    <div class="min-h-screen py-6 px-4 md:px-10">
-        <!-- Start Header -->
-        <div class="w-full flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-            <h1 class="text-primary font-medium text-2xl md:text-[25px]">{% trans "Car Booking Services" %}</h1>
-            <div class="actions flex text-lg font-medium text-primary mt-3 md:mt-0">
+  <div class="min-h-screen py-6 px-4 md:px-10">
+    <!-- Start Header -->
+    <div
+      class="w-full flex flex-col md:flex-row justify-between items-center text-center md:text-left"
+    >
+      <h1 class="text-primary font-medium text-2xl md:text-[25px]">
+        {% trans "Car Booking Services" %}
+      </h1>
+      <div class="actions flex text-lg font-medium text-primary mt-3 md:mt-0">
+        <form action="{% url 'set_language' %}" method="post">
+          {% csrf_token %} {% get_current_language as LANGUAGE_CODE %}
+          <input
+            name="next"
+            type="hidden"
+            value="{{ request.get_full_path|slice:'3:' }}"
+          />
 
-                <form action="{% url 'set_language' %}" method="post">
-                    {% csrf_token %}
-                    {% get_current_language as LANGUAGE_CODE %}
-                    <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}">
-
-                    {% if LANGUAGE_CODE == 'ar' %}
-                    <button type="submit" name="language" value="en" class="solid fa-language">
-                        <span class="label"></span>En
-                    </button>
-                    {% else %}
-                    <button type="submit" name="language" value="ar" class="solid fa-language">
-                        <span class="label"></span>Ar
-                    </button>
-                    {% endif %}
-                </form>
-
-            </div>
-        </div>
-
-        <!-- Start Main Section -->
-        <div
-            class="flex flex-wrap sm:flex-col sm:items-center md:flex-row gap-4 justify-center mt-16 md:mt-28 lg:mt-36 animate-fadeInDown">
-            <a href="{% url 'book' %}"
-                class="request-btn main-btn main-btn-hover flex items-center justify-center gap-2 p-4">
-                <i class="fa-solid fa-car-side text-primary text-xl icon"></i>
-                <span class="text-base sm:text-lg font-medium">{% trans "Request a car" %}</span>
-            </a>
-            <a href="{% url 'cancel' %}"
-                class="cancel-btn main-btn main-btn-hover flex items-center justify-center gap-2 p-4">
-                <i class="fa-solid fa-x text-xl text-red-600 icon"></i>
-                <span class="text-base sm:text-lg font-medium">{% trans "Cancel Trip" %}</span>
-            </a>
-            <a href="{% url 'search' %}"
-                class="search-btn main-btn main-btn-hover flex items-center justify-center gap-2 p-4">
-                <i class="fa-solid fa-magnifying-glass text-xl text-green-600 icon"></i>
-                <span class="text-base sm:text-lg font-medium">{% trans "Search Trips" %}</span>
-            </a>
-        </div>
+          {% if LANGUAGE_CODE == 'ar' %}
+          <button
+            type="submit"
+            name="language"
+            value="en"
+            class="solid fa-language"
+          >
+            <span class="label"></span>En
+          </button>
+          {% else %}
+          <button
+            type="submit"
+            name="language"
+            value="ar"
+            class="solid fa-language"
+          >
+            <span class="label"></span>Ar
+          </button>
+          {% endif %}
+        </form>
+      </div>
     </div>
 
-{% endblock %}
+    <!-- Start Main Section -->
+    <div
+      class="flex flex-wrap sm:flex-col sm:items-center md:flex-row gap-4 justify-center mt-16 md:mt-28 lg:mt-36 animate-fadeInDown"
+    >
+      <a
+        href="{% url 'book' %}"
+        class="request-btn main-btn main-btn-hover flex items-center justify-center gap-2 p-4"
+      >
+        <i class="fa-solid fa-car-side text-primary text-xl icon"></i>
+        <span class="text-base sm:text-lg font-medium"
+          >{% trans "Request a car" %}</span
+        >
+      </a>
+      <a
+        href="{% url 'search' %}"
+        class="search-btn main-btn main-btn-hover flex items-center justify-center gap-2 p-4"
+      >
+        <i class="fa-solid fa-magnifying-glass text-xl text-green-600 icon"></i>
+        <span class="text-base sm:text-lg font-medium"
+          >{% trans "Search Trips" %}</span
+        >
+      </a>
+    </div>
+  </div>
+
+  {% endblock %}
+</body>
