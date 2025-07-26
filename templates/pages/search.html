@@ -151,7 +151,7 @@
             <div class="mt-3 p-2 bg-blue-50 rounded-lg">
               <p class="text-sm text-blue-800">
                 <i class="fa-solid fa-info-circle mr-1"></i>
-                Confirmation Status:
+                {% trans "Confirmation Status:" %}
               </p>
               <div class="flex space-x-4 mt-1 text-xs">
                 <span
@@ -160,8 +160,8 @@
                   <i
                     class="fa-solid {% if trip.client_confirmed %}fa-check-circle{% else %}fa-clock{% endif %} mr-1"
                   ></i>
-                  Client: {% if trip.client_confirmed %}Confirmed {% else
-                  %}Pending{% endif %}
+                  {% trans "Client" %}: {% if trip.client_confirmed %}{% trans "Confirmed" %} {% else
+                  %}{% trans "Pending" %}{% endif %}
                 </span>
                 <span
                   class="{% if trip.admin_confirmed %}text-green-600{% else %}text-gray-500{% endif %}"
@@ -169,8 +169,8 @@
                   <i
                     class="fa-solid {% if trip.admin_confirmed %}fa-check-circle{% else %}fa-clock{% endif %} mr-1"
                   ></i>
-                  Admin: {% if trip.admin_confirmed %}Confirmed {% else
-                  %}Pending{% endif %}
+                  {% trans "Admin" %}: {% if trip.admin_confirmed %}{% trans "Confirmed" %} {% else
+                  %}{% trans "Pending" %}{% endif %}
                 </span>
               </div>
             </div>
@@ -184,7 +184,7 @@
                 class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
               >
                 <i class="fa-solid fa-check mr-1"></i>
-                Complete Trip
+                {% trans "Complete Trip" %}
               </button>
 
               <!-- Hidden confirmation form -->
@@ -202,7 +202,7 @@
                       for="confirmation_code_{{trip.id}}"
                       class="block text-sm font-medium text-gray-700 mb-1"
                     >
-                      Enter your 4-digit confirmation code:
+                      {% trans "Enter your 4-digit confirmation code:" %}
                     </label>
                     <input
                       type="text"
@@ -220,14 +220,14 @@
                       type="submit"
                       class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors"
                     >
-                      Confirm Trip
+                      {% trans "Confirm Trip" %}
                     </button>
                     <button
                       type="button"
                       onclick="hideConfirmationForm({{trip.id}})"
                       class="bg-gray-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-600 transition-colors"
                     >
-                      Cancel
+                      {% trans "Cancel" %}
                     </button>
                   </div>
                 </form>
@@ -239,7 +239,7 @@
                 class="inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium bg-green-100 text-green-800"
               >
                 <i class="fa-solid fa-check-circle mr-2"></i>
-                Trip Confirmed by Client
+                {% trans "Trip Confirmed by Client" %}
               </span>
             </div>
             {% endif %}
@@ -257,7 +257,7 @@
                     for="delete_confirmation_code_{{trip.id}}"
                     class="block text-sm font-medium text-red-700 mb-1"
                   >
-                    Enter your 4-digit confirmation code to cancel this trip:
+                    {% trans "Enter your 4-digit confirmation code to cancel this trip:" %}
                   </label>
                   <input
                     type="text"
@@ -275,14 +275,14 @@
                     type="submit"
                     class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors"
                   >
-                    Cancel Trip
+                    {% trans "Cancel Trip" %}
                   </button>
                   <button
                     type="button"
                     onclick="hideDeleteConfirmationForm({{trip.id}})"
                     class="bg-gray-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-600 transition-colors"
                   >
-                    Keep Trip
+                    {% trans "Keep Trip" %}
                   </button>
                 </div>
               </form>
@@ -303,7 +303,7 @@
                     for="edit_confirmation_code_{{trip.id}}"
                     class="block text-sm font-medium text-blue-700 mb-1"
                   >
-                    Enter your 4-digit confirmation code to edit this trip:
+                    {% trans "Enter your 4-digit confirmation code to edit this trip:" %}
                   </label>
                   <input
                     type="text"
@@ -321,14 +321,14 @@
                     type="submit"
                     class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
                   >
-                    Edit Trip
+                    {% trans "Edit Trip" %}
                   </button>
                   <button
                     type="button"
                     onclick="hideEditConfirmationForm({{trip.id}})"
                     class="bg-gray-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-600 transition-colors"
                   >
-                    Cancel
+                    {% trans "Cancel" %}
                   </button>
                 </div>
               </form>

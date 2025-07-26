@@ -1,5 +1,4 @@
-{% extends '../base.html' %} {% load static tailwind_tags %} {% load i18n %}
-{% block content %}
+{% extends '../base.html' %} {% load static tailwind_tags %} {% load i18n %} {%block content %}
 
 <body class="bg-gradient-to-b from-blue-100 to-white h-screen">
   <div class="containe flex items-center justify-center h-full">
@@ -117,43 +116,44 @@
   </div>
 
   <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const startInput = document.getElementById("id_start_date");
-    const endInput = document.getElementById("id_end_date");
+    document.addEventListener("DOMContentLoaded", function () {
+      const startInput = document.getElementById("id_start_date");
+      const endInput = document.getElementById("id_end_date");
 
-    // تحديد أقل تاريخ مسموح به للبداية (الوقت الحالي)
-    const now = new Date();
-    const pad = (n) => n.toString().padStart(2, '0');
-    const formatDateTimeLocal = (d) => {
-      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-    };
+      // تحديد أقل تاريخ مسموح به للبداية (الوقت الحالي)
+      const now = new Date();
+      const pad = (n) => n.toString().padStart(2, "0");
+      const formatDateTimeLocal = (d) => {
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(
+          d.getDate()
+        )}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      };
 
-    const minStart = formatDateTimeLocal(now);
-    startInput.min = minStart;
+      const minStart = formatDateTimeLocal(now);
+      startInput.min = minStart;
 
-    // عند تغيير تاريخ البداية، نحدّث الحد الأدنى لتاريخ النهاية
-    startInput.addEventListener("change", () => {
-      endInput.min = startInput.value;
+      // عند تغيير تاريخ البداية، نحدّث الحد الأدنى لتاريخ النهاية
+      startInput.addEventListener("change", () => {
+        endInput.min = startInput.value;
+      });
+
+      // منع إرسال الفورم لو فيه خطأ في التواريخ
+      const form = startInput.closest("form");
+      form.addEventListener("submit", (e) => {
+        const start = new Date(startInput.value);
+        const end = new Date(endInput.value);
+        const current = new Date();
+
+        if (start < current) {
+          e.preventDefault();
+          alert("Start date cannot be in the past.");
+        } else if (end <= start) {
+          e.preventDefault();
+          alert("End date must be after the start date.");
+        }
+      });
     });
-
-    // منع إرسال الفورم لو فيه خطأ في التواريخ
-    const form = startInput.closest("form");
-    form.addEventListener("submit", (e) => {
-      const start = new Date(startInput.value);
-      const end = new Date(endInput.value);
-      const current = new Date();
-
-      if (start < current) {
-        e.preventDefault();
-        alert("Start date cannot be in the past.");
-      } else if (end <= start) {
-        e.preventDefault();
-        alert("End date must be after the start date.");
-      }
-    });
-  });
-</script>
-
+  </script>
 
   {% endblock %}
 </body>

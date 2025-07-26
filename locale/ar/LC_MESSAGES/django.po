@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-14 01:46+0200\n"
+"POT-Creation-Date: 2025-07-19 01:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,191 +19,311 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: .\booking\forms.py:12
+#: .\booking\forms.py:13
+
+#| msgid "Enter your name"
+msgid "Enter driver name"
+msgstr "ادخل اسم السائق"
+
+#: .\booking\forms.py:18
+
+#| msgid "Enter your phone number"
+msgid "Enter driver phone number"
+msgstr "ادخل رقم هاتف السائق"
+
+#: .\booking\forms.py:23
+
+#| msgid "Enter your email"
+msgid "Enter driver email"
+msgstr "ادخل بريد السائق الالكتروني"
+
+#: .\booking\forms.py:34
 msgid "Enter your name"
 msgstr "ادخل اسمك"
 
-#: .\booking\forms.py:17
+#: .\booking\forms.py:40
 msgid "Enter your phone number"
 msgstr "ادخل رقم هاتفك"
 
-#: .\booking\forms.py:22
-msgid "Enter your email"
-msgstr "ادخل بريدك الالكتروني"
+#: .\booking\forms.py:46
+msgid "Enter email addresses separated by commas"
+msgstr "ادخل عناوين البريد الإلكتروني مفصولة بفواصل"
 
-#: .\booking\forms.py:35
+#: .\booking\forms.py:52
+
+#| msgid "Enter your phone number"
+msgid "Enter project number"
+msgstr "ادخل رقم المشروع"
+
+#: .\booking\forms.py:68
 msgid "Select a governorate..."
-msgstr "اختر محافظة"
+msgstr "اختر محافظة..."
 
-#: .\templates\pages\book.html:17 .\templates\pages\cancel.html:18
-#: .\templates\pages\search.html:17
+#: .\templates\pages\book.html:28 .\templates\pages\search.html:27
 msgid "Back"
 msgstr "رجوع"
 
-#: .\templates\pages\book.html:20
+#: .\templates\pages\book.html:32
 msgid "Request a Car"
 msgstr "طلب سيارة"
 
-#: .\templates\pages\book.html:26
+#: .\templates\pages\book.html:39 .\templates\pages\edit_trip.html:52
 msgid "Name"
 msgstr "الاسم"
 
-#: .\templates\pages\book.html:31
+#: .\templates\pages\book.html:44 .\templates\pages\edit_trip.html:57
 msgid "Phone Number"
 msgstr "رقم الهاتف"
 
-#: .\templates\pages\book.html:36
+#: .\templates\pages\book.html:49 .\templates\pages\edit_trip.html:62
 msgid "Email"
 msgstr "البريد الالكتروني"
 
-#: .\templates\pages\book.html:42
-msgid "Start Date"
-msgstr "تاريخ البدء"
+#: .\templates\pages\book.html:55
 
-#: .\templates\pages\book.html:46
-msgid "End Date"
-msgstr "تاريخ الانتهاء"
+#| msgid "Phone Number"
+msgid "Project Number"
+msgstr "رقم المشروع"
 
-#: .\templates\pages\book.html:52
+#: .\templates\pages\book.html:63
+
+#| msgid "Start Date"
+msgid "Start Date & Time"
+msgstr "تاريخ ووقت البدء"
+
+#: .\templates\pages\book.html:69
+
+#| msgid "End Date"
+msgid "End Date & Time"
+msgstr "تاريخ ووقت الانتهاء"
+
+#: .\templates\pages\book.html:76 .\templates\pages\edit_trip.html:82
 msgid "Destination"
 msgstr "الوجهة"
 
-#: .\templates\pages\book.html:56
+#: .\templates\pages\book.html:80 .\templates\pages\edit_trip.html:86
 msgid "Cairo"
 msgstr "القاهرة"
 
-#: .\templates\pages\book.html:57
+#: .\templates\pages\book.html:81 .\templates\pages\edit_trip.html:87
 msgid "Giza"
 msgstr "الجيزة"
 
-#: .\templates\pages\book.html:58
+#: .\templates\pages\book.html:82 .\templates\pages\edit_trip.html:88
 msgid "Alexandria"
 msgstr "الاسكندرية"
 
-#: .\templates\pages\book.html:59
+#: .\templates\pages\book.html:83 .\templates\pages\edit_trip.html:89
 msgid "Dakahlia"
 msgstr "الدقهلية"
 
-#: .\templates\pages\book.html:60
+#: .\templates\pages\book.html:84 .\templates\pages\edit_trip.html:90
 msgid "Beheira"
 msgstr "البحيرة"
 
-#: .\templates\pages\book.html:61
+#: .\templates\pages\book.html:85 .\templates\pages\edit_trip.html:91
 msgid "Sharqia"
 msgstr "الشرقية"
 
-#: .\templates\pages\book.html:62
+#: .\templates\pages\book.html:86 .\templates\pages\edit_trip.html:92
 msgid "Monufia"
 msgstr "المنوفية"
 
-#: .\templates\pages\book.html:63
+#: .\templates\pages\book.html:87 .\templates\pages\edit_trip.html:93
 msgid "Gharbia"
-msgstr "الغريبة"
+msgstr "الغربية"
 
-#: .\templates\pages\book.html:64
+#: .\templates\pages\book.html:88 .\templates\pages\edit_trip.html:94
 msgid "Kafr El Sheikh"
 msgstr "كفر الشيخ"
 
-#: .\templates\pages\book.html:65
+#: .\templates\pages\book.html:89 .\templates\pages\edit_trip.html:95
 msgid "Faiyum"
 msgstr "الفيوم"
 
-#: .\templates\pages\book.html:66
+#: .\templates\pages\book.html:90 .\templates\pages\edit_trip.html:96
 msgid "Beni Suef"
 msgstr "بني سويف"
 
-#: .\templates\pages\book.html:67
+#: .\templates\pages\book.html:91 .\templates\pages\edit_trip.html:97
 msgid "Minya"
-msgstr "المينيا"
+msgstr "المنيا"
 
-#: .\templates\pages\book.html:68
+#: .\templates\pages\book.html:92 .\templates\pages\edit_trip.html:98
 msgid "Asyut"
-msgstr "اسيوط"
+msgstr "أسيوط"
 
-#: .\templates\pages\book.html:69
+#: .\templates\pages\book.html:93 .\templates\pages\edit_trip.html:99
 msgid "Sohag"
 msgstr "سوهاج"
 
-#: .\templates\pages\book.html:70
+#: .\templates\pages\book.html:94 .\templates\pages\edit_trip.html:100
 msgid "Qena"
 msgstr "قنا"
 
-#: .\templates\pages\book.html:71
+#: .\templates\pages\book.html:95 .\templates\pages\edit_trip.html:101
 msgid "Luxor"
-msgstr "الاقصر"
+msgstr "الأقصر"
 
-#: .\templates\pages\book.html:72
+#: .\templates\pages\book.html:96 .\templates\pages\edit_trip.html:102
 msgid "Aswan"
-msgstr "اسوان"
+msgstr "أسوان"
 
-#: .\templates\pages\book.html:73
+#: .\templates\pages\book.html:97 .\templates\pages\edit_trip.html:103
 msgid "Red Sea"
-msgstr "البحر الاحمر"
+msgstr "البحر الأحمر"
 
-#: .\templates\pages\book.html:74
+#: .\templates\pages\book.html:98 .\templates\pages\edit_trip.html:104
 msgid "New Valley"
 msgstr "الوادي الجديد"
 
-#: .\templates\pages\book.html:75
+#: .\templates\pages\book.html:99 .\templates\pages\edit_trip.html:105
 msgid "Matrouh"
 msgstr "مطروح"
 
-#: .\templates\pages\book.html:76
+#: .\templates\pages\book.html:100 .\templates\pages\edit_trip.html:106
 msgid "North Sinai"
 msgstr "شمال سيناء"
 
-#: .\templates\pages\book.html:77
+#: .\templates\pages\book.html:101 .\templates\pages\edit_trip.html:107
 msgid "South Sinai"
 msgstr "جنوب سيناء"
 
-#: .\templates\pages\book.html:78
+#: .\templates\pages\book.html:102 .\templates\pages\edit_trip.html:108
 msgid "Port Said"
-msgstr "بور سعيد"
+msgstr "بورسعيد"
 
-#: .\templates\pages\book.html:79
+#: .\templates\pages\book.html:103 .\templates\pages\edit_trip.html:109
 msgid "Ismailia"
-msgstr "اسماعيلية"
+msgstr "الإسماعيلية"
 
-#: .\templates\pages\book.html:80
+#: .\templates\pages\book.html:104 .\templates\pages\edit_trip.html:110
 msgid "Suez"
 msgstr "السويس"
 
-#: .\templates\pages\book.html:81
+#: .\templates\pages\book.html:105 .\templates\pages\edit_trip.html:111
 msgid "Damietta"
 msgstr "دمياط"
 
-#: .\templates\pages\book.html:86
+#: .\templates\pages\book.html:113
 msgid "Book Trip"
 msgstr "حجز رحلة"
 
-#: .\templates\pages\cancel.html:21 .\templates\pages\index.html:42
-msgid "Cancel Trip"
-msgstr "الغاء رحلة"
+#: .\templates\pages\edit_trip.html:28
+msgid "Back to Search"
+msgstr "العودة إلى البحث"
 
-#: .\templates\pages\cancel.html:25 .\templates\pages\search.html:24
-msgid "Search Trips..."
-msgstr "البحث عن رحلات"
+#: .\templates\pages\edit_trip.html:32 .\templates\pages\search.html:328
+msgid "Edit Trip"
+msgstr "تعديل الرحلة"
 
-#: .\templates\pages\cancel.html:67 .\templates\pages\search.html:66
-msgid "No active trips found"
-msgstr "لا يوجد رحلات نشطة"
+#: .\templates\pages\edit_trip.html:69
+msgid "Start Date"
+msgstr "تاريخ البدء"
 
-#: .\templates\pages\index.html:9
+#: .\templates\pages\edit_trip.html:75
+msgid "End Date"
+msgstr "تاريخ الانتهاء"
+
+#: .\templates\pages\edit_trip.html:120
+
+#| msgid "Cancel Trip"
+msgid "Update Trip"
+msgstr "تحديث الرحلة"
+
+#: .\templates\pages\edit_trip.html:126 .\templates\pages\search.html:234
+#: .\templates\pages\search.html:335
+
+#| msgid "Cancel Trip"
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: .\templates\pages\index.html:10
 msgid "Car Booking Services"
-msgstr "خدمات حجز سياره"
+msgstr "خدمات حجز السيارة"
 
-#: .\templates\pages\index.html:37
+#: .\templates\pages\index.html:54
 msgid "Request a car"
 msgstr "طلب سيارة"
 
-#: .\templates\pages\index.html:47 .\templates\pages\search.html:20
+#: .\templates\pages\index.html:63 .\templates\pages\search.html:31
 msgid "Search Trips"
 msgstr "البحث عن رحلات"
 
-#: .\templates\pages\search.html:35
+#: .\templates\pages\search.html:52
+msgid "Search Trips..."
+msgstr "البحث عن رحلات..."
+
+#: .\templates\pages\search.html:69
 msgid "active"
 msgstr "نشط"
 
-#: .\templates\pages\search.html:39
+#: .\templates\pages\search.html:90
+msgid "pending"
+msgstr "قيد الانتظار"
+
+#: .\templates\pages\search.html:112
 msgid "completed"
 msgstr "مكتمل"
+
+#: .\templates\pages\search.html:158
+msgid "Confirmation Status:"
+msgstr "حالة التأكيد:"
+
+#: .\templates\pages\search.html:167
+msgid "Client"
+msgstr "العميل"
+
+#: .\templates\pages\search.html:167 .\templates\pages\search.html:176
+msgid "Confirmed"
+msgstr "تم التأكيد"
+
+#: .\templates\pages\search.html:168 .\templates\pages\search.html:177
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+#: .\templates\pages\search.html:176
+msgid "Admin"
+msgstr "المسؤول"
+
+#: .\templates\pages\search.html:191
+
+#| msgid "completed"
+msgid "Complete Trip"
+msgstr "إكمال الرحلة"
+
+#: .\templates\pages\search.html:209
+msgid "Enter your 4-digit confirmation code:"
+msgstr "أدخل رمز التأكيد المكون من 4 أرقام:"
+
+#: .\templates\pages\search.html:227
+
+#| msgid "Cancel Trip"
+msgid "Confirm Trip"
+msgstr "تأكيد الرحلة"
+
+#: .\templates\pages\search.html:246
+msgid "Trip Confirmed by Client"
+msgstr "تم تأكيد الرحلة من قبل العميل"
+
+#: .\templates\pages\search.html:264
+msgid "Enter your 4-digit confirmation code to cancel this trip:"
+msgstr "أدخل رمز التأكيد المكون من 4 أرقام لإلغاء هذه الرحلة:"
+
+#: .\templates\pages\search.html:282
+msgid "Cancel Trip"
+msgstr "إلغاء الرحلة"
+
+#: .\templates\pages\search.html:289
+
+#| msgid "Cancel Trip"
+msgid "Keep Trip"
+msgstr "الاحتفاظ بالرحلة"
+
+#: .\templates\pages\search.html:310
+msgid "Enter your 4-digit confirmation code to edit this trip:"
+msgstr "أدخل رمز التأكيد المكون من 4 أرقام لتعديل هذه الرحلة:"
+
+#: .\templates\pages\search.html:345
+msgid "No active trips found"
+msgstr "لا يوجد رحلات نشطة"
